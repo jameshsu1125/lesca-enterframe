@@ -3,21 +3,26 @@
 # Installation
 
 ```sh
-$ npm install <package> --save
+$ npm install lesca-enterframe --save
 ```
 
 # Usage
 
 ```javascript
-import foo from 'foo';
+import EnterFrame from 'lesca-enterframe';
+
+EnterFrame.init((timestamp) => {
+	console.log(timestamp);
+});
 ```
 
 # Methods
 
-| method | options | description | default |
-| :----- | :-----: | :---------: | ------: |
-
-# Properties
-
-| Properties | type | description | default |
-| :--------- | :--: | :---------: | ------: |
+| method    | options |       description        | default |
+| :-------- | :-----: | :----------------------: | ------: |
+| init(fn)  |   fn    | will call frame by frame |         |
+| getTime() |         |     return timestamp     |         |
+| stop()    |         |    stop calling func     |         |
+| play()    |         |  continue calling func   |         |
+| add(fn)   |   fn    |     extend call func     |         |
+| destory() |         |       remove event       |         |

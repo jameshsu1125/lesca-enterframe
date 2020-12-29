@@ -1,15 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
-import MyClass from './../lib/index';
+import EnterFrame from './../lib/index';
 
 import './styles.css';
 
+EnterFrame.init((time) => {
+	console.log(time);
+});
+
 function Demo() {
-	return (
-		<>
-			<MyClass />
-		</>
-	);
+	return <></>;
 }
 
 render(<Demo />, document.getElementById('app'));
