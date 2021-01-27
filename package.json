@@ -1,6 +1,6 @@
 {
 	"name": "lesca-enterframe",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "call func frame by frame. use window.requestAnimationFrame",
 	"main": "lib/index.js",
 	"scripts": {
