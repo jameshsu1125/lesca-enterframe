@@ -7,9 +7,9 @@ export default class EnterFrame {
 	constructor(fn = () => {}) {
 		const { EnterFrame } = window;
 
-		if (EnterFrame !== undefined) {
-			throw new Error('EnterFrame aleady Use');
-			return;
+		if (EnterFrame) {
+			EnterFrame.add(() => fn());
+			return EnterFrame;
 		}
 
 		this.enable = true;
@@ -29,9 +29,7 @@ export default class EnterFrame {
 		this.fn = fn;
 		this.frame();
 
-		if (EnterFrame) window.EnterFrame += 1;
-		else window.EnterFrame = 0;
-
+		window.EnterFrame = this;
 		return this;
 	}
 

@@ -16,14 +16,11 @@ function Demo() {
 			<button onClick={() => enterframe.play()}>play</button>
 			<button onClick={() => enterframe.destroy()}>destroy</button>
 			<button
-				onClick={() =>
-					enterframe?.add((e) => {
-						const { delta, target } = e;
-						if (delta >= 10000) {
-							target.stop();
-						}
-					})
-				}>
+				onClick={() => {
+					const frame2 = new EnterFrame((e) => {
+						console.log('a');
+					});
+				}}>
 				add
 			</button>
 		</>
