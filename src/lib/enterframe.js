@@ -1,6 +1,19 @@
-module.exports = {
-	go: true,
-	init(fn = function () {}) {
+export default class EnterFrame {
+	/**
+	 * call function each frame
+	 * @param {function} fn functuin of frame
+	 * @returns
+	 */
+	constructor(fn = () => {}) {
+		const { EnterFrame } = window;
+
+		if (EnterFrame !== undefined) {
+			throw new Error('EnterFrame aleady Use');
+			return;
+		}
+
+		this.enable = true;
+
 		window.requestAnimFrame = (function () {
 			return (
 				window.requestAnimationFrame ||
@@ -11,14 +24,30 @@ module.exports = {
 				}
 			);
 		})();
+
 		this.time = new Date().getTime();
 		this.fn = fn;
 		this.frame();
-		window.EnterFrame = window.EnterFrame || this;
-	},
+
+		if (EnterFrame) window.EnterFrame += 1;
+		else window.EnterFrame = 0;
+
+		return this;
+	}
+
+	/**
+	 * destroy and stop render
+	 */
 	destroy() {
 		window.requestAnimFrame = function () {};
-	},
+		this.fn = () => {};
+		if (window.EnterFrame) delete window.EnterFrame;
+	}
+
+	/**
+	 *
+	 * @param {function} fn add more function
+	 */
 	add(fn) {
 		this.fn = (function (_super) {
 			return function () {
@@ -26,24 +55,34 @@ module.exports = {
 				return _super.apply(this, arguments);
 			};
 		})(this.fn);
-	},
+	}
+
 	frame() {
-		var t = this.getTime();
-		this.fn(t);
-		if (this.go) window.requestAnimFrame(this.frame.bind(this));
-	},
+		const delta = this.getTime();
+		const target = this;
+		this.fn({ delta, target });
+
+		if (this.enable) window.requestAnimFrame(() => this.frame());
+	}
+
 	getTime() {
 		return new Date().getTime() - this.time;
-	},
+	}
+
 	stop() {
-		this.go = false;
+		if (!this.enable) return;
+
+		this.enable = false;
 		this.stopTime = new Date().getTime();
-	},
+	}
+
 	play() {
+		if (this.enable) return;
+		this.enable = true;
+
 		this.now = new Date().getTime() - this.stopTime;
 		this.time += this.now;
 
-		this.go = true;
 		this.frame();
-	},
-};
+	}
+}

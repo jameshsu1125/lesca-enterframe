@@ -11,9 +11,16 @@ $ npm install lesca-enterframe --save
 ```javascript
 import EnterFrame from 'lesca-enterframe';
 
-EnterFrame.init((timestamp) => {
-	console.log(timestamp);
+const enterframe = new EnterFrame((e) => {
+	const { delta, frame } = e;
+	console.log(delta); // 0 ~ infinity
+	if (delta >= 1000) frame.stop();
 });
+
+
+<button onClick={() => enterframe?.stop()}>stop</button>
+<button onClick={() => enterframe?.play()}>play</button>
+<button onClick={() => enterframe?.destroy()}>destroy</button>
 ```
 
 # Methods
@@ -21,7 +28,6 @@ EnterFrame.init((timestamp) => {
 | method    | options |       description        | default |
 | :-------- | :-----: | :----------------------: | ------: |
 | init(fn)  |   fn    | will call frame by frame |         |
-| getTime() |         |     return timestamp     |         |
 | stop()    |         |    stop calling func     |         |
 | play()    |         |  continue calling func   |         |
 | add(fn)   |   fn    |     extend call func     |         |
