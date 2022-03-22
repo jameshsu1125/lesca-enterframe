@@ -9,26 +9,41 @@ $ npm install lesca-enterframe --save
 # Usage
 
 ```javascript
+import { useState, useEffect } from 'react';
 import EnterFrame from 'lesca-enterframe';
 
-const enterframe = new EnterFrame((e) => {
-	const { delta, frame } = e;
-	console.log(delta); // 0 ~ infinity
-	if (delta >= 1000) frame.stop();
-});
+const Component = () => {
+	const [time, setTime] = useState(0);
 
+	useEffect(() => {
+		EnterFrame.add((e) => {
+			const { delta } = e;
+			setTime(delta);
+		});
+	}, []);
 
-<button onClick={() => enterframe?.stop()}>stop</button>
-<button onClick={() => enterframe?.play()}>play</button>
-<button onClick={() => enterframe?.destroy()}>destroy</button>
+	return (
+		<div>
+			<h1>{time}</h1>
+			<button onClick={() => EnterFrame.play()}>Play</button>
+			<button onClick={() => EnterFrame.stop()}>Stop</button>
+		</div>
+	);
+};
 ```
 
 # Methods
 
-| method    | options |       description        | default |
-| :-------- | :-----: | :----------------------: | ------: |
-| init(fn)  |   fn    | will call frame by frame |         |
-| stop()    |         |    stop calling func     |         |
-| play()    |         |  continue calling func   |         |
-| add(fn)   |   fn    |     extend call func     |         |
-| destory() |         |       remove event       |         |
+| method  |   options   |       description        | default |
+| :------ | :---------: | :----------------------: | ------: |
+| add(fn) | fn:function |     extend call func     |         |
+| play    |             |  continue calling func   |         |
+| stop    |             |    stop calling func     |         |
+| undo    |             | reverse to last function |         |
+| destory |             |       remove event       |         |
+
+# Properties
+
+| Properties |  type  |                description                | default |
+| :--------- | :----: | :---------------------------------------: | ------: |
+| todo       | Object | get function and list of function history |      [] |
