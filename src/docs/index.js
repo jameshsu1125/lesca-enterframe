@@ -1,57 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { render } from 'react-dom';
-import EnterFrame from '../lib/index';
-import './styles.css';
+import { Container } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import { useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import Navigation from './components/navigation';
+import Demo from './pages/demo';
+import Usage from './pages/usage';
+import './styles.less';
+import { theme } from './theme';
 
-function Demo() {
-	const [state, setState] = useState(0);
+const App = () => {
+  const [state, setState] = useState('demo');
 
-	useEffect(() => {
-		EnterFrame.add((e) => {
-			const { delta } = e;
-			setState(delta);
-		});
-	}, []);
+  const appendPage = () => {
+    switch (state) {
+      default:
+      case 'demo':
+        return <Demo />;
 
-	return (
-		<>
-			<h1>{state}</h1>
-			<button
-				onClick={() => {
-					EnterFrame.stop();
-					console.log('====stop===');
-				}}
-			>
-				stop
-			</button>
-			<button
-				onClick={() => {
-					console.log('===play===');
-					EnterFrame.play();
-				}}
-			>
-				play
-			</button>
-			<button onClick={() => EnterFrame.destory()}>destory</button>
-			<button
-				onClick={() => {
-					EnterFrame.add((e) => {
-						console.log('a');
-					});
-				}}
-			>
-				add
-			</button>
+      case 'usage':
+        return <Usage />;
+    }
+  };
 
-			<button
-				onClick={() => {
-					EnterFrame.undo();
-				}}
-			>
-				reverse
-			</button>
-		</>
-	);
-}
+  return (
+    <ThemeProvider theme={theme}>
+      <Navigation setState={setState} state={state} />
+      <Container style={{ paddingTop: '70px' }} maxWidth='lg'>
+        {appendPage()}
+      </Container>
+    </ThemeProvider>
+  );
+};
 
-render(<Demo />, document.getElementById('app'));
+createRoot(document.getElementById('app')).render(<App />);
