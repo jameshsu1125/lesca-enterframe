@@ -58,6 +58,7 @@ const Component = () => {
 | .**stop**()                    |    stop calling func     |   void |
 | .**undo**()                    | reverse to last function |   void |
 | .**destory**()                 |       remove event       |   void |
+| .**setFPS**(**fps**:_number_)  |         set FPS          |   void |
 
 # Properties
 
@@ -67,5 +68,4 @@ const Component = () => {
 
 ### Features
 
-- TypeScript
 - maintain if necessary
