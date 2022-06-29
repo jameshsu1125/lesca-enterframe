@@ -6,6 +6,7 @@ const Demo = () => {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
+    EnterFrame.setFPS(24);
     EnterFrame.add((e) => {
       const { delta } = e;
       setTime(delta);
