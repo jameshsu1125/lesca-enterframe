@@ -1,9 +1,12 @@
 const { requestAnimationFrame } = window;
 
-const undoMessage = 'There is no funnction to undo.';
+type Todo = {
+  do: Function;
+  list: Function[];
+};
 
 const getTime = () => new Date().getTime();
-
+const undoMessage = 'There is no funnction to undo.';
 const now = getTime();
 
 const initializeState = {
@@ -16,12 +19,12 @@ const initializeState = {
 
 const state = { ...initializeState };
 
-const todo = {
+const todo: Todo = {
   do: () => {},
   list: [],
 };
 
-const add = (doSomething) => {
+const add = (doSomething: Function) => {
   todo.list.push(todo.do);
   todo.do = (function (_super) {
     return function () {
@@ -66,7 +69,7 @@ const stop = () => {
 };
 
 const destory = () => {
-  state.enable = initializeState.state;
+  state.enable = initializeState.enable;
   todo.do = () => {};
   todo.list = [];
 };
@@ -74,7 +77,7 @@ const destory = () => {
 const undo = () => {
   const { list } = todo;
   if (list.length === 0) {
-    console.log(undoMessage);
+    console.warn(undoMessage);
     return;
   }
   todo.do = list[list.length - 1];

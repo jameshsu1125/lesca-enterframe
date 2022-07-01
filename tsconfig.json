@@ -12,6 +12,7 @@
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "allowJs": true,
+    "noImplicitThis": false,
     "paths": {
       "*": ["./lib/*"]
     }
