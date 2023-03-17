@@ -57,7 +57,7 @@ const Component = () => {
 | .**play**()                    |  continue calling func   |   void |
 | .**stop**()                    |    stop calling func     |   void |
 | .**undo**()                    | reverse to last function |   void |
-| .**destory**()                 |       remove event       |   void |
+| .**destroy**()                 |       remove event       |   void |
 | .**setFPS**(**fps**:_number_)  |         set FPS          |   void |
 
 # Properties

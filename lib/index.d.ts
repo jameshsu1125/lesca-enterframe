@@ -1,4 +1,4 @@
-declare type Todo = {
+type Todo = {
     do: Function;
     list: Function[];
 };
@@ -7,7 +7,7 @@ declare const EnterFrame: {
     todo: Todo;
     play: () => void;
     stop: () => void;
-    destory: () => void;
+    destroy: () => void;
     undo: () => void;
     setFPS: (value?: number) => void;
 };

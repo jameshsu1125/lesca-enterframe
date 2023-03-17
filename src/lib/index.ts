@@ -68,7 +68,7 @@ const stop = () => {
   state.stopTime = getTime();
 };
 
-const destory = () => {
+const destroy = () => {
   state.enable = initializeState.enable;
   todo.do = () => {};
   todo.list = [];
@@ -88,6 +88,6 @@ const setFPS = (value = 30) => {
   state.fps = value;
 };
 
-const EnterFrame = { add, todo, play, stop, destory, undo, setFPS };
+const EnterFrame = { add, todo, play, stop, destroy, undo, setFPS };
 
 export default EnterFrame;
