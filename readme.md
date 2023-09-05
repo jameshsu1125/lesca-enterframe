@@ -59,6 +59,7 @@ const Component = () => {
 | .**undo**()                    | reverse to last function |   void |
 | .**destroy**()                 |       remove event       |   void |
 | .**setFPS**(**fps**:_number_)  |         set FPS          |   void |
+| .**reset**(**fps**:_number_)   |       reset delta        |   void |
 
 # Properties
 

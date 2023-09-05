@@ -10,5 +10,6 @@ declare const EnterFrame: {
     destroy: () => void;
     undo: () => void;
     setFPS: (value?: number) => void;
+    reset: () => void;
 };
 export default EnterFrame;

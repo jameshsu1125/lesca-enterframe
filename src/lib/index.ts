@@ -88,6 +88,12 @@ const setFPS = (value = 30) => {
   state.fps = value;
 };
 
-const EnterFrame = { add, todo, play, stop, destroy, undo, setFPS };
+const reset = () => {
+  state.timestamp = getTime();
+  state.stopTime = getTime();
+  state.lastTime = getTime();
+};
+
+const EnterFrame = { add, todo, play, stop, destroy, undo, setFPS, reset };
 
 export default EnterFrame;

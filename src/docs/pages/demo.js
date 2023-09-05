@@ -34,6 +34,14 @@ const Demo = () => {
         >
           EnterFrame.stop()
         </Button>
+        <Button
+          onClick={() => {
+            EnterFrame.reset();
+            setTime(0);
+          }}
+        >
+          EnterFrame.reset()
+        </Button>
       </ButtonGroup>
     </div>
   );
