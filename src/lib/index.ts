@@ -6,7 +6,7 @@ type Todo = {
 };
 
 const getTime = () => new Date().getTime();
-const undoMessage = 'There is no funnction to undo.';
+const undoMessage = 'There is nothing to undo.';
 const now = getTime();
 
 const initializeState = {
