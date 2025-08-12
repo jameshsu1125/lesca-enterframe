@@ -24,7 +24,7 @@ const todo: Todo = {
   list: [],
 };
 
-const add = (doSomething: Function) => {
+const add = (doSomething: (e: { delta: number }) => void) => {
   todo.list.push(todo.do);
   todo.do = (function (_super) {
     return function (this: Function) {

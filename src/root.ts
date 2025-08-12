@@ -4,7 +4,10 @@ const createApp = () => {
   return new Promise<HTMLElement>((resolve) => {
     const app = document.createElement("div");
     app.innerHTML = "Hello, World!";
-    console.log(EnterFrame);
+    EnterFrame.add((e) => {
+      console.log(e.delta);
+    });
+    EnterFrame.play();
     resolve(app);
   });
 };
