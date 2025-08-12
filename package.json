@@ -1,6 +1,6 @@
 {
   "name": "lesca-enterframe",
-  "private": true,
+  "private": false,
   "description": "get delta for each frame",
   "version": "2.0.0",
   "type": "module",
