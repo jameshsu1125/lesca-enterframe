@@ -24,6 +24,11 @@ const todo: Todo = {
   list: [],
 };
 
+const staticTodo: Todo = {
+  do: () => {},
+  list: [],
+};
+
 const add = (doSomething: (e: { delta: number }) => void) => {
   todo.list.push(todo.do);
   todo.do = (function (_super) {
@@ -32,6 +37,16 @@ const add = (doSomething: (e: { delta: number }) => void) => {
       return _super.apply(this, arguments);
     };
   })(todo.do);
+};
+
+const addStatic = (doSomething: (e: { delta: number }) => void) => {
+  staticTodo.list.push(staticTodo.do);
+  staticTodo.do = (function (_super) {
+    return function (this: Function) {
+      doSomething(arguments[0]);
+      return _super.apply(this, arguments);
+    };
+  })(staticTodo.do);
 };
 
 const update = () => {
@@ -49,6 +64,7 @@ const update = () => {
 
   const delta = now - state.timestamp;
   todo.do({ delta });
+  staticTodo.do({ delta });
 
   requestAnimationFrame(() => update());
 };
@@ -94,6 +110,17 @@ const reset = () => {
   state.lastTime = getTime();
 };
 
-const EnterFrame = { add, todo, play, stop, destroy, undo, setFPS, reset };
+const EnterFrame = {
+  add,
+  addStatic,
+  todo,
+  staticTodo,
+  play,
+  stop,
+  destroy,
+  undo,
+  setFPS,
+  reset,
+};
 
 export default EnterFrame;

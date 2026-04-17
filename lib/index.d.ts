@@ -6,7 +6,11 @@ declare const EnterFrame: {
     add: (doSomething: (e: {
         delta: number;
     }) => void) => void;
+    addStatic: (doSomething: (e: {
+        delta: number;
+    }) => void) => void;
     todo: Todo;
+    staticTodo: Todo;
     play: () => void;
     stop: () => void;
     destroy: () => void;

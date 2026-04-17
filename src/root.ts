@@ -4,10 +4,25 @@ const createApp = () => {
   return new Promise<HTMLElement>((resolve) => {
     const app = document.createElement("div");
     app.innerHTML = "Hello, World!";
-    EnterFrame.add((e) => {
-      console.log(e.delta);
+    EnterFrame.add(() => {
+      console.log("a");
+    });
+    EnterFrame.add(() => {
+      console.log("b");
+    });
+    EnterFrame.addStatic(() => {
+      console.log("static");
     });
     EnterFrame.play();
+
+    setTimeout(() => {
+      EnterFrame.destroy();
+    }, 1000);
+
+    setTimeout(() => {
+      EnterFrame.play();
+    }, 2000);
+
     resolve(app);
   });
 };
