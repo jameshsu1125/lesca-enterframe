@@ -1,14 +1,14 @@
+type FrameEvent = {
+    delta: number;
+};
+type TodoFn = (e: FrameEvent) => void;
 type Todo = {
-    do: Function;
-    list: Function[];
+    do: TodoFn;
+    list: TodoFn[];
 };
 declare const EnterFrame: {
-    add: (doSomething: (e: {
-        delta: number;
-    }) => void) => void;
-    addStatic: (doSomething: (e: {
-        delta: number;
-    }) => void) => void;
+    add: (doSomething: TodoFn) => void;
+    addStatic: (doSomething: TodoFn) => void;
     todo: Todo;
     staticTodo: Todo;
     play: () => void;
@@ -17,5 +17,12 @@ declare const EnterFrame: {
     undo: () => void;
     setFPS: (value?: number) => void;
     reset: () => void;
+    getState: () => {
+        enable: boolean;
+        timestamp: number;
+        stopTime: number;
+        lastTime: number;
+        fps: number;
+    };
 };
 export default EnterFrame;

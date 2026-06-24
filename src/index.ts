@@ -1,8 +1,14 @@
 const { requestAnimationFrame } = window;
 
+type FrameEvent = {
+  delta: number;
+};
+
+type TodoFn = (e: FrameEvent) => void;
+
 type Todo = {
-  do: Function;
-  list: Function[];
+  do: TodoFn;
+  list: TodoFn[];
 };
 
 const getTime = () => new Date().getTime();
@@ -29,24 +35,22 @@ const staticTodo: Todo = {
   list: [],
 };
 
-const add = (doSomething: (e: { delta: number }) => void) => {
+const add = (doSomething: TodoFn) => {
   todo.list.push(todo.do);
-  todo.do = (function (_super) {
-    return function (this: Function) {
-      doSomething(arguments[0]);
-      return _super.apply(this, arguments);
-    };
-  })(todo.do);
+  const previous = todo.do;
+  todo.do = (e) => {
+    doSomething(e);
+    previous(e);
+  };
 };
 
-const addStatic = (doSomething: (e: { delta: number }) => void) => {
+const addStatic = (doSomething: TodoFn) => {
   staticTodo.list.push(staticTodo.do);
-  staticTodo.do = (function (_super) {
-    return function (this: Function) {
-      doSomething(arguments[0]);
-      return _super.apply(this, arguments);
-    };
-  })(staticTodo.do);
+  const previous = staticTodo.do;
+  staticTodo.do = (e) => {
+    doSomething(e);
+    previous(e);
+  };
 };
 
 const update = () => {
@@ -110,6 +114,10 @@ const reset = () => {
   state.lastTime = getTime();
 };
 
+const getState = () => {
+  return state;
+};
+
 const EnterFrame = {
   add,
   addStatic,
@@ -121,6 +129,7 @@ const EnterFrame = {
   undo,
   setFPS,
   reset,
+  getState,
 };
 
 export default EnterFrame;
